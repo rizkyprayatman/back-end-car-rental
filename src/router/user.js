@@ -190,7 +190,7 @@ module.exports = function (express) {
    *                          schema:
    *                              $ref: '#/components/schemas/User'
    */
-  route.post("/profile", userController.getProfileHandler);
+  route.post(cors("/profile", userController.getProfileHandler));
 
   return route;
 };
