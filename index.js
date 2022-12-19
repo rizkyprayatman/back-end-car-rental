@@ -2,9 +2,11 @@ const express = require('express');
 const route = require('./src/router/index.js');
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const app = express();
-const port = 8005;
+const port = process.env.HOST;
 
 
 const options = {
