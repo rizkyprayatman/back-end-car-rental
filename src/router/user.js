@@ -1,8 +1,16 @@
 const userController = require("../modules/auth/controller/user.controller.js");
 const authMiddleware = require("../middleware/auth.middleware.js");
+const cors = require('cors');
 
 module.exports = function (express) {
   const route = express.Router();
+
+  const corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200// some legacy browsers (IE11, various SmartTVs) choke on 204
+  };
+
+  route.use(cors(corsOptions));
 
   // COMPONENTS
   /**
