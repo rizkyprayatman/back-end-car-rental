@@ -6,7 +6,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3333;
+const port = process.env.PORT || 3001;
 
 
 const options = {

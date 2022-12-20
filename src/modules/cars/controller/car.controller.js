@@ -25,20 +25,6 @@ const CarController = {
         });
     }
 
-    // if (req.query.availableAt != null) {
-    //   const availableAt = req.query.availableAt;
-    //   return await CarService.findByDate(availableAt)
-    //     .then((data) => {
-    //       res.status(200).json({
-    //         data: data,
-    //       });
-    //     })
-    //     .catch((err) => {
-    //       console.error(err);
-    //       throw err;
-    //     });
-    // }
-
     if (req.query.capacity != null) {
       const capacity = req.query.capacity;
       return await CarService.findByCapacity(capacity)

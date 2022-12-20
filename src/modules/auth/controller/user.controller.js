@@ -21,7 +21,9 @@ const UserController = {
         const isUserExist = await userService.userByEmail(fields.email);
 
         if (isUserExist != null) {
-          throw "User Sudah ada";
+          return res.status(422).json({
+            message: "Email telah ada"
+          });
         }
 
         const hashedPassword = await bcrypt.hash(fields.password);
@@ -125,12 +127,16 @@ const UserController = {
           id: checkUser.id,
           email: checkUser.email,
           role: checkUser.role,
+          name: checkUser.name,
         });
 
         return res.status(200).json({
           message: "Login Sukses!",
           data: {
             token: tokenGenerated,
+            email: checkUser.email,
+            role: checkUser.role,
+            name: checkUser.name,
           },
         });
       });
@@ -142,22 +148,22 @@ const UserController = {
 
   getProfileHandler: async (req, res) => {
     const authHeader = req.headers["authorization"];
-    const token = authHeader && authHeader.split(' ')[1];
+    const token = authHeader && authHeader.split(" ")[1];
     const decodedToken = await jwt.checkTokenJwt(token);
     const getUserById = await userService.userById(decodedToken.id);
 
-    if(getUserById == null) {
-        return res.status(404).json({error: "User Tidak Ditemukan"});
-    };
+    if (getUserById == null) {
+      return res.status(404).json({ error: "User Tidak Ditemukan" });
+    }
 
     res.status(200).json({
-        data: {
-            id: getUserById.id,
-            email: getUserById.email,
-            role: getUserById.role,
-            createdAt: getUserById.createdAt,
-            updatedAt: getUserById.updatedAt
-        }
+      data: {
+        id: getUserById.id,
+        email: getUserById.email,
+        role: getUserById.role,
+        createdAt: getUserById.createdAt,
+        updatedAt: getUserById.updatedAt,
+      },
     });
   },
 };
